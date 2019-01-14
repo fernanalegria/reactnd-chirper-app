@@ -1,8 +1,5 @@
-import { createStore, combineReducers } from 'redux';
-import * as reducers from './ducks';
+import { createStore } from 'redux';
+import rootReducer from './ducks';
+import middleware from './middleware';
 
-export default () => {
-  const rootReducer = combineReducers(reducers);
-
-  return createStore(rootReducer);
-};
+export default () => createStore(rootReducer, middleware);

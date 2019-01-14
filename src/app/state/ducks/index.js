@@ -1,4 +1,10 @@
-export { default as authedUser } from './authedUser';
-export { default as tweets } from './tweets';
-export { default as users } from './users';
-export { default as shared } from './shared';
+import { combineReducers } from 'redux';
+import { default as authedUser } from './authedUser';
+import { default as tweets } from './tweets';
+import { default as users } from './users';
+
+export default combineReducers({
+    authedUser,
+    tweets,
+    users
+});
