@@ -1,6 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './app/views/layouts/App'
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import App from './app/views/layouts/App';
+import configureStore from './app/state/store';
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const reduxStore = configureStore();
+
+const RootHtml = () => (
+  <Provider store={reduxStore}>
+    <App />
+  </Provider>
+);
+
+render(<RootHtml />, document.getElementById('root'));
