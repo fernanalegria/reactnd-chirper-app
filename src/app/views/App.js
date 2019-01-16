@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { sharedActions } from '../state/ducks/shared';
 import Dashboard from './pages/Dashboard';
-import { isEmptyObject } from '../utils/helpers';
+import LoadingBar from 'react-redux-loading';
 
 class App extends Component {
   componentDidMount() {
@@ -10,15 +10,19 @@ class App extends Component {
   }
 
   render() {
-    return <div>{!this.props.loading && <Dashboard />}</div>;
+    return (
+      <div>
+        <LoadingBar />
+        {this.props.loadingBar && this.props.loadingBar.default === 0 && (
+          <Dashboard />
+        )}
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
-  loading:
-    !state.authedUser ||
-    isEmptyObject(state.tweets) ||
-    isEmptyObject(state.users)
+const mapStateToProps = ({ loadingBar }) => ({
+  loadingBar
 });
 
 export default connect(mapStateToProps)(App);
