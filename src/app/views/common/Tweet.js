@@ -6,11 +6,25 @@ import {
   TiHeartOutline,
   TiHeartFullOutline
 } from 'react-icons/ti';
+import { handleToggleTweet } from '../../state/ducks/tweets/actions';
 
 class Tweet extends Component {
   toParent = (e, id) => {
     e.preventDefault();
     // TODO: Redirect to parent tweet
+  };
+
+  toggleTweet = e => {
+    const {
+      authedUser,
+      tweet: { id, hasLiked }
+    } = this.props;
+    e.preventDefault();
+    this.props.handleToggleTweet({
+      id,
+      authedUser,
+      hasLiked
+    });
   };
 
   render() {
@@ -53,7 +67,7 @@ class Tweet extends Component {
               <TiArrowBackOutline className="tweet-icon" />
             </button>
             <span>{replies !== 0 && replies}</span>
-            <button className="tweet-button">
+            <button className="tweet-button" onClick={this.toggleTweet}>
               {hasLiked ? (
                 <TiHeartFullOutline className="tweet-icon" color="#e0245e" />
               ) : (
@@ -79,4 +93,11 @@ const mapStateToProps = ({ authedUser, users, tweets }, { id }) => {
   };
 };
 
-export default connect(mapStateToProps)(Tweet);
+const mapDispatchToProps = {
+  handleToggleTweet: info => handleToggleTweet(info)
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Tweet);
