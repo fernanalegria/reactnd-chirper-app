@@ -7,11 +7,12 @@ import {
   TiHeartFullOutline
 } from 'react-icons/ti';
 import { handleToggleTweet } from '../../state/ducks/tweets/actions';
+import { Link, withRouter } from 'react-router-dom';
 
 class Tweet extends Component {
   toParent = (e, id) => {
     e.preventDefault();
-    // TODO: Redirect to parent tweet
+    this.props.history.push(`/tweet/${id}`);
   };
 
   toggleTweet = e => {
@@ -33,6 +34,7 @@ class Tweet extends Component {
     }
 
     const {
+      id,
       name,
       timestamp,
       text,
@@ -44,7 +46,7 @@ class Tweet extends Component {
     } = this.props.tweet;
 
     return (
-      <div className="tweet">
+      <Link to={`/tweet/${id}`} className="tweet">
         <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
         <div className="tweet-info">
           <div>
@@ -77,7 +79,7 @@ class Tweet extends Component {
             <span>{likes !== 0 && likes}</span>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 }
@@ -97,7 +99,9 @@ const mapDispatchToProps = {
   handleToggleTweet: info => handleToggleTweet(info)
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Tweet);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Tweet)
+);

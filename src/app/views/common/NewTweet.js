@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleAddTweet } from '../../state/ducks/tweets/actions';
+import { Redirect } from 'react-router-dom';
 
 const MAX_LENGTH = 280;
 
 class NewTweet extends Component {
   state = {
-    text: ''
+    text: '',
+    toHome: false
   };
 
   handleChange = e => {
@@ -19,15 +21,20 @@ class NewTweet extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleAddTweet(this.state.text, this.props.id, () => {
-      this.setState({
-        text: ''
-      });
+      this.setState((currentState, props) => ({
+        text: '',
+        toHome: props.id ? false : true
+      }));
     });
   };
 
   render() {
-    const { text } = this.state;
+    const { text, toHome } = this.state;
     const tweetLeft = MAX_LENGTH - text.length;
+
+    if (toHome) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div>
