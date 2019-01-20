@@ -9,7 +9,24 @@ export default createReducer({})({
       ...state[action.id],
       likes: likesReducer(state[action.id].likes, action)
     }
-  })
+  }),
+  [types.ADD_TWEET]: (state, action) => {
+    let replyingTo = {};
+    if (action.tweet.replyingTo) {
+      replyingTo = {
+        [action.tweet.replyingTo]: {
+          ...state[action.tweet.replyingTo],
+          replies: [...state[action.tweet.replyingTo].replies, action.tweet.id]
+        }
+      };
+    }
+
+    return {
+      ...state,
+      [action.tweet.id]: action.tweet,
+      ...replyingTo
+    };
+  }
 });
 
 const likesReducer = createReducer([])({
