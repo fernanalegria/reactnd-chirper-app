@@ -7,11 +7,14 @@ import {
   TiHeartFullOutline
 } from 'react-icons/ti';
 import { handleToggleTweet } from '../../state/ducks/tweets/actions';
+import { Link, withRouter } from 'react-router-dom';
 
 class Tweet extends Component {
   toParent = (e, id) => {
     e.preventDefault();
-    // TODO: Redirect to parent tweet
+    if (this.props.location.pathname !== `/tweet/${id}`) {
+      this.props.history.push(`/tweet/${id}`);
+    }
   };
 
   toggleTweet = e => {
@@ -27,12 +30,20 @@ class Tweet extends Component {
     });
   };
 
+  toTweet = e => {
+    const { tweet, location } = this.props;
+    if (location.pathname === `/tweet/${tweet.id}`) {
+      e.preventDefault();
+    }
+  };
+
   render() {
     if (!this.props.tweet) {
       return <p className="center">This tweet doesn't exist</p>;
     }
 
     const {
+      id,
       name,
       timestamp,
       text,
@@ -44,7 +55,7 @@ class Tweet extends Component {
     } = this.props.tweet;
 
     return (
-      <div className="tweet">
+      <Link to={`/tweet/${id}`} onClick={this.toTweet} className="tweet">
         <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
         <div className="tweet-info">
           <div>
@@ -77,7 +88,7 @@ class Tweet extends Component {
             <span>{likes !== 0 && likes}</span>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 }
@@ -97,7 +108,9 @@ const mapDispatchToProps = {
   handleToggleTweet: info => handleToggleTweet(info)
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Tweet);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Tweet)
+);
