@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Tweet from '../common/Tweet';
 import NewTweet from '../common/NewTweet';
+import ListTweets from '../common/ListTweets';
 
 class TweetPage extends Component {
   render() {
@@ -11,13 +12,7 @@ class TweetPage extends Component {
         <Tweet id={id} />
         <NewTweet id={id} />
         {replies.length > 0 && <h3 className="center">Replies</h3>}
-        <ul>
-          {replies.map(id => (
-            <li key={id}>
-              <Tweet id={id} />
-            </li>
-          ))}
-        </ul>
+        <ListTweets tweetIds={replies} />
       </div>
     );
   }
