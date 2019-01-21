@@ -1,5 +1,8 @@
 import React from 'react';
 import Tweet from './Tweet';
+import PropTypes from 'prop-types';
+
+const { arrayOf, string } = PropTypes;
 
 const ListTweets = props => (
   <ul>
@@ -10,5 +13,9 @@ const ListTweets = props => (
     ))}
   </ul>
 );
+
+ListTweets.propTypes = {
+  tweetIds: arrayOf(string).isRequired
+};
 
 export default ListTweets;
