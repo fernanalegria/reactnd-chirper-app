@@ -12,7 +12,9 @@ import { Link, withRouter } from 'react-router-dom';
 class Tweet extends Component {
   toParent = (e, id) => {
     e.preventDefault();
-    this.props.history.push(`/tweet/${id}`);
+    if (this.props.location.pathname !== `/tweet/${id}`) {
+      this.props.history.push(`/tweet/${id}`);
+    }
   };
 
   toggleTweet = e => {
@@ -26,6 +28,13 @@ class Tweet extends Component {
       authedUser,
       hasLiked
     });
+  };
+
+  toTweet = e => {
+    const { tweet, location } = this.props;
+    if (location.pathname === `/tweet/${tweet.id}`) {
+      e.preventDefault();
+    }
   };
 
   render() {
@@ -46,7 +55,7 @@ class Tweet extends Component {
     } = this.props.tweet;
 
     return (
-      <Link to={`/tweet/${id}`} className="tweet">
+      <Link to={`/tweet/${id}`} onClick={this.toTweet} className="tweet">
         <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
         <div className="tweet-info">
           <div>
