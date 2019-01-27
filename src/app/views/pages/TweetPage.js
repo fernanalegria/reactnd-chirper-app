@@ -7,6 +7,9 @@ import PropTypes from 'prop-types';
 
 const { arrayOf, string } = PropTypes;
 
+/**
+ * Tweet page which consists of the tweet itself, its replies and a form to reply to it
+ */
 class TweetPage extends Component {
   static propTypes = {
     id: string.isRequired,

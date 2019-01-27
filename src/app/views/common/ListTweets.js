@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 const { arrayOf, string } = PropTypes;
 
+/**
+ * List of tweets
+ */
 const ListTweets = props => (
   <ul>
     {props.tweetIds.map(id => (

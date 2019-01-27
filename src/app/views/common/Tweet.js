@@ -13,6 +13,9 @@ import { tweetShape } from '../propTypes';
 
 const { string, func } = PropTypes;
 
+/**
+ * Tweet card which consists of author, date, content, replies and likes
+ */
 class Tweet extends Component {
   static propTypes = {
     id: string.isRequired,

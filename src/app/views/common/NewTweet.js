@@ -7,6 +7,9 @@ import PropTypes from 'prop-types';
 const MAX_LENGTH = 280;
 const { string, func } = PropTypes;
 
+/**
+ * Component that lets the user insert a new tweet and submit it
+ */
 class NewTweet extends Component {
   static propTypes = {
     id: string,

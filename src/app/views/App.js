@@ -9,6 +9,9 @@ import Nav from './Nav';
 import LoadingBar from 'react-redux-loading';
 import { isEmptyObject } from '../utils/helpers';
 
+/**
+ * Component that wraps the whole app
+ */
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(sharedActions.handleFetchData());
