@@ -6,6 +6,9 @@ import { showLoading, hideLoading } from 'react-redux-loading';
 
 const AUTHED_ID = 'dan_abramov';
 
+/**
+ * Calls API to fetch the initial data and saves it into the Redux store
+ */
 export const handleFetchData = () => dispatch => {
   dispatch(showLoading());
   return getInitialData().then(({ users, tweets }) => {

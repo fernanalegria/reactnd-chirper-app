@@ -8,8 +8,22 @@ import {
 } from 'react-icons/ti';
 import { handleToggleTweet } from '../../state/ducks/tweets/actions';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { tweetShape } from '../propTypes';
 
+const { string, func } = PropTypes;
+
+/**
+ * Tweet card which consists of author, date, content, replies and likes
+ */
 class Tweet extends Component {
+  static propTypes = {
+    id: string.isRequired,
+    authedUser: string.isRequired,
+    tweet: tweetShape.isRequired,
+    handleToggleTweet: func.isRequired
+  };
+
   toParent = (e, id) => {
     e.preventDefault();
     if (this.props.location.pathname !== `/tweet/${id}`) {

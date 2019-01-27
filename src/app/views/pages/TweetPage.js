@@ -3,8 +3,19 @@ import { connect } from 'react-redux';
 import Tweet from '../common/Tweet';
 import NewTweet from '../common/NewTweet';
 import ListTweets from '../common/ListTweets';
+import PropTypes from 'prop-types';
 
+const { arrayOf, string } = PropTypes;
+
+/**
+ * Tweet page which consists of the tweet itself, its replies and a form to reply to it
+ */
 class TweetPage extends Component {
+  static propTypes = {
+    id: string.isRequired,
+    replies: arrayOf(string).isRequired
+  };
+
   render() {
     const { id, replies } = this.props;
     return (

@@ -2,10 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleAddTweet } from '../../state/ducks/tweets/actions';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const MAX_LENGTH = 280;
+const { string, func } = PropTypes;
 
+/**
+ * Component that lets the user insert a new tweet and submit it
+ */
 class NewTweet extends Component {
+  static propTypes = {
+    id: string,
+    handleAddTweet: func.isRequired
+  };
+
   state = {
     text: '',
     toHome: false

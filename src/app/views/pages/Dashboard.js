@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ListTweets from '../common/ListTweets';
+import PropTypes from 'prop-types';
 
+const { arrayOf, string } = PropTypes;
+
+/**
+ * Main page that displays the list of current tweets
+ */
 class Dashboard extends Component {
+  static propTypes = {
+    tweetIds: arrayOf(string).isRequired
+  };
+
   render() {
     return (
       <div>
